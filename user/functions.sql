@@ -1,8 +1,9 @@
 CREATE PROCEDURE insert_user(
-    IN i_name VARCHAR(40),
+    IN i_Nome VARCHAR(40),
     IN i_CPF VARCHAR(14),
-    IN i_saldo VARACHAR(100),
+    IN i_saldo VARCHAR(100),
     IN i_email VARCHAR(100),
+    IN i_senha VARCHAR(40),
     IN i_telefone VARCHAR(14),
     IN i_aniversario DATE
 )
@@ -17,10 +18,11 @@ BEGIN
 
     -- Insere os dados na tabela Usuario
     INSERT INTO Usuario(
-        name,
+        Nome,
         CPF,
         saldo,
         email,
+        Senha,
         telefone,
         aniversario
     ) VALUES (
@@ -28,6 +30,7 @@ BEGIN
         i_CPF,
         i_saldo,
         i_email,
+        i_senha,
         i_telefone,
         i_aniversario
     );
