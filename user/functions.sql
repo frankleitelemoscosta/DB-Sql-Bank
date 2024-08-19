@@ -1,8 +1,8 @@
 CREATE PROCEDURE insert_user(
     IN i_name VARCHAR(40),
     IN i_CPF VARCHAR(14),
-    IN i_saldo DECIMAL(10, 2),
-    IN i_email VARCHAR(40),
+    IN i_saldo VARACHAR(100),
+    IN i_email VARCHAR(100),
     IN i_telefone VARCHAR(14),
     IN i_aniversario DATE
 )

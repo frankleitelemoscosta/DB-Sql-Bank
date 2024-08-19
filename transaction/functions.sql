@@ -1,8 +1,8 @@
 CREATE PROCEDURE insert_transaction(
-    IN CPFPagante INT,
-    IN CPFdestinatario INT,
-    IN Valor DECIMAL,
-    IN Modo VARCHAR(1)
+    IN Id_Pagante INT,
+    IN Id_destinatario INT,
+    IN Valor VARCHAR(100),
+    IN Tipo VARCHAR(100)
 )
 BEGIN
     DECLARE error_message VARCHAR(255);
@@ -15,15 +15,15 @@ BEGIN
 
     -- Insere os dados na tabela Usuario
     INSERT INTO Transacao(
-        CPFdestinatario,
-        CPFpagante,
+        Id_destinatario,
+        Id_pagante,
         Valor,
-        Modo
+        Tipo
     ) VALUES (
-        CPFPagante,
-        CPFdestinatario,
+        Id_Pagante,
+        Id_destinatario,
         Valor,
-        Modo
+        Tipo
     );
 
     IF ROW_COUNT() > 0 THEN
@@ -38,7 +38,7 @@ CALL insert_transaction('444','55555',222);
 -------------------------------------------------------------------------------------------------
 
 CREATE PROCEDURE get_transaction(
-    IN s_CPFpagante INT
+    IN s_Id_pagante INT
 )
 BEGIN
     DECLARE error_message VARCHAR(255);
@@ -51,12 +51,12 @@ BEGIN
 
     -- Consulta para obter os dados e retornar o resultado diretamente
     SELECT 
-        t.CPFdestinatario,
-        t.CPFpagante,
+        t.Id_destinatario,
+        t.Id_pagante,
         t.Valor,
-        t.Modo
+        t.Tipo
     FROM Transacao t
-    WHERE t.CPFpagante = s_CPFpagante;
+    WHERE t.Id_pagante = s_Id_pagante;
 
     -- Verifica se não há registros encontrados
     IF ROW_COUNT() = 0 THEN
