@@ -48,7 +48,7 @@ CALL insert_user('Exemplo',43253,54235,'fdsaf',43523,'2001-10-20');
 -------------------------------------------------------------------------------------------------
 
 CREATE PROCEDURE get_usuario(
-    IN s_CPF INT
+    IN s_CPF VARCHAR(11)
 )
 BEGIN
     DECLARE error_message VARCHAR(255);
@@ -61,10 +61,11 @@ BEGIN
 
     -- Consulta para obter os dados e retornar o resultado diretamente
     SELECT 
-        t.name,
+        t.Nome,
         t.CPF,
         t.saldo,
         t.email,
+        t.Senha,
         t.telefone,
         t.aniversario
     FROM Usuario t
@@ -79,7 +80,7 @@ END;
 CREATE PROCEDURE update_user(
     IN i_name VARCHAR(40),
     IN i_CPF VARCHAR(14),
-    IN i_saldo DECIMAL(10, 2),
+    IN i_saldo VARCHAR(100),
     IN i_email VARCHAR(40),
     IN i_telefone VARCHAR(14),
     IN i_aniversario DATE
@@ -96,7 +97,7 @@ BEGIN
     -- Atualiza os dados na tabela Usuario onde o CPF corresponde
     UPDATE Usuario
     SET
-        name = i_name,
+        Nome = i_name,
         saldo = i_saldo,
         email = i_email,
         telefone = i_telefone,
