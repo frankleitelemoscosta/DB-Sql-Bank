@@ -110,3 +110,34 @@ BEGIN
         SELECT JSON_OBJECT('status', 'error', 'message', 'Falha ao atualizar dados ou CPF não encontrado') AS error;
     END IF;
 END;
+
+CREATE PROCEDURE get_usuario_login(
+    IN s_email VARCHAR(100),
+    IN s_senha VARCHAR(40)
+)
+BEGIN
+    DECLARE error_message VARCHAR(255);
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1 error_message = MESSAGE_TEXT;
+        SELECT JSON_OBJECT('status', 'error', 'message', error_message) AS error;
+    END;
+
+    -- Consulta para obter os dados e retornar o resultado diretamente
+    SELECT 
+        T.Id,
+        t.Nome,
+        t.CPF,
+        t.saldo,
+        t.email,
+        t.telefone,
+        t.aniversario
+    FROM Usuario t
+    WHERE t.email = s_email AND t.Senha = s_senha;
+
+    -- Verifica se não há registros encontrados
+    IF ROW_COUNT() = 0 THEN
+        SELECT JSON_OBJECT('status', 'error', 'message', 'No records found') AS error;
+    END IF;
+END;
